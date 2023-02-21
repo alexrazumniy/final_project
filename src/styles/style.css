@@ -1,3 +1,167 @@
-h1 {
-    color: rgb(68, 18, 160);
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.header {
+    position: relative;
+    border-bottom: 3px solid rgb(62, 28, 184);
+    margin-bottom: 20px;
+}
+
+.header-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.btn-logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(238, 148, 144);
+    /* box-shadow: 2px 2px 2px; */
+}
+
+.button {
+    padding: 6px 16px;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form {
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 2px 5px 5px #3e9acf;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.form-title,
+.task-input-title {
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+.form-subtitle {
+    font-size: 32px;
+    margin: 10px auto 20px;
+}
+
+.form-field,
+.task-form-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-name {
+    font-size: 16px;
+}
+
+.field-input {
+    font-size: 18px;
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.form-btn-submit {
+    margin-left: 310px;
+    background-color: rgb(52, 182, 110);
+    box-shadow: 2px 2px 2px;
+}
+
+.form-btn-submit:hover {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.error-message {
+    margin-top: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #f00;
+}
+
+.task-input-form {
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 2px 5px 5px #128334;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.task-input {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.task-btn-submit {
+    margin-left: 310px;
+    background-color: rgb(207, 209, 77);
+    box-shadow: 2px 2px 2px;
+}
+
+.task-btn-submit:hover {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.task-card {
+    max-width: 300px;
+    margin: 0 auto;
+    box-shadow: 2px 5px 10px #d8c3b3;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.task-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.close-btn {
+    margin: 0;
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 1px 8px 2px;
+    cursor: pointer;
+}
+
+.task-description {
+    font-size: 14px;
+}
+
+.task-timer {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+    font-size: 14px;
+}
+
+.task-created-data {
+    margin: 10px auto;
+    font-size: 14px;
+    color: rgb(128, 128, 128);
+}
+
+.btn-done {
+    background-color: #9dc49f;
 }
