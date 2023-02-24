@@ -1,52 +1,89 @@
-{/* <div class="task-card">
-<div class="task-card-header">
-    <p class="task-name">Test task</p>
-    <p class="close-btn">x</p>
-</div>
-<p class="task-description">Additional info</p>
-<div class="task-timer">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="svg-play"
-            d="M12 2C6.475 2 2 6.475 2 12C2 17.525 6.475 22 12 22C17.525 22 22 17.525 22 12C22 6.475 17.525 2 12 2ZM10 16.5V7.5L16 12L10 16.5Z"
-            fill="#0ca019" />
-    </svg>
+// Форма для ввода таска
 
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="svg-pause"
-            d="M12 2C6.475 2 2 6.475 2 12 2 17.525 6.475 22 12 22 17.525 22 22 17.525 22 12 22 6.475 17.525 2 12 2ZM12 3C7.475 3 3 7.475 3 12 3 16.525 7.475 21 12 21 16.525 21 21 16.525 21 12 21 7.475 16.525 3 12 3ZM9 16 9 8C9 7 10 7 10 8L10 16C10 17 9 17 9 16ZM14 16 14 8C14 7 15 7 15 8L15 16C15 17 14 17 14 16Z"
-            fill="#e01b1b" fill-rule="evenodd" />
-    </svg> -->
-    <span class="hours">00</span>: 
-    timeTracked
-    <span class="min">00</span>:
-    <span class="sec">00</span>
-</div>
-<div class="task-created-data"> createdAt
-    21/02/2023 00-00-00
-</div>
-<button class="btn-done button">Mark as done</button>
-</div> */}
+const taskForm = document.createElement('form');
+const taskFormTitle = document.createElement('h5');
+taskFormTitle.innerText = 'ADD TASK';
+
+const taskInputContainer = document.createElement('div');
+const taskInputLabel = document.createElement('label');
+const taskInput = document.createElement('input');
+taskInputLabel.innerText = 'Name';
+taskInput.type = 'text';
+taskInput.placeholder = 'Enter the task';
+const taskInputErrMsg = document.createElement('span'); ////
+taskInputErrMsg.innerText = 'Add task!' ///////////////////////
+
+const descriptInputContainer = document.createElement('div');
+const descriptInputLabel = document.createElement('label');
+const descriptInput = document.createElement('input');
+descriptInputLabel.innerText = 'Description';
+descriptInput.type = 'text';
+descriptInput.placeholder = 'Add description (optionally)';
+
+const btnAdd = document.createElement('button');
+btnAdd.innerText = 'ADD';
+
+document.body.append(taskForm);
+taskForm.append(taskFormTitle, taskInputContainer, descriptInputContainer, btnAdd);
+
+taskInputContainer.append(taskInputLabel, taskInput, taskInputErrMsg);
+descriptInputContainer.append(descriptInputLabel, descriptInput);
+
+taskForm.classList.add('form');
+taskFormTitle.classList.add('form-title');
+
+const inputContainers = [taskInputContainer, descriptInputContainer];
+inputContainers.map(cont => cont.classList.add('input-container'));
+
+const labels = [taskInputLabel, descriptInputLabel];
+labels.map(label => label.classList.add('input-label'));
+
+const inputs = [taskInput, descriptInput];
+inputs.map(input => input.classList.add('field-input'));
+
+taskInputErrMsg.classList.add('error-message');
+
+btnAdd.classList.add('task-btn-submit', 'button');
+
+
+
+
+// Форма карточки таска
 
 const taskCard = document.createElement('div');
 const cardHeader = document.createElement('div');
-cardHeader.innerText = 'ADD TASK';
 const taskName = document.createElement('p');
-taskName.innerText = 'taskName';
+taskName.innerText = 'Test task';
 const closeBtn = document.createElement('p');
 closeBtn.innerText = 'x';
+
 const taskInfo = document.createElement('p');
-taskInfo.innerText = 'taskInfo';
+taskInfo.innerText = 'Additional info';
+
 const timerWrapper = document.createElement('div');
-const timeTracked = document.createElement('span');
-timeTracked.innerText = 'timeTracked';
-const createdAt = document.createElement('span');
-createdAt.innerText = 'createdAt';
+const startBtn = document.createElement('div');
+const timeTracker = document.createElement('span');
+timeTracker.innerText = 'timeTracked';
+
+const creationData = document.createElement('p');
+creationData.innerText = 'createdAt';
+
 const btnDone = document.createElement('button');
 btnDone.innerText = 'Mark as done';
 
 document.body.append(taskCard);
-taskCard.append(cardHeader, taskName, closeBtn, taskInfo, timerWrapper, timeTracked, createdAt, btnDone)
+cardHeader.append(taskName, closeBtn);
+timerWrapper.append(startBtn, timeTracker);
+taskCard.append(cardHeader, taskInfo, timerWrapper, creationData, btnDone)
 
 taskCard.classList.add('task-card');
 cardHeader.classList.add('task-card-header');
-taskName.classList.add('task-card-header');
+taskName.classList.add('task-name');
+closeBtn.classList.add('close-btn');
+taskInfo.classList.add('task-info');
+timerWrapper.classList.add('timer-wrapper');
+// startBtn.classList.add('play-btn');
+startBtn.classList.add('pause-btn');
+creationData.classList.add('creation-data');
+btnDone.classList.add('btn-done', 'button');
+

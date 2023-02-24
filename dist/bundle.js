@@ -1,1 +1,3 @@
-(()=>{"use strict";console.log("Hello world",10)})();
+(() => {
+  'use strict';
+})();

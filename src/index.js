@@ -1,4 +1,12 @@
-import { a } from './test.js';
 import './styles/style.css'
+import { Input } from './components/Input.js';
 
-console.log("Hello world!!!", a);
+const input = new Input ({
+    name: "email",
+    placeholder: "Enter email",
+    label: "Email",
+});
+
+input.render(document.body);
+
+// console.log(input);

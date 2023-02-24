@@ -6,17 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
-    <div class="container">
+    
+    <div class="container" id="container">
 
-        <div class="header">
-            <h1 class="header-text">TASK SCHEDULER</h1>
+        <header class="header">
+            <h1 class="header-title">TASK SCHEDULER</h1>
             <img class="logout-icon" src="./img/outthedoor-icon.png" alt="">
             <button class="btn-logout button">Logout</button>
-        </div>
+            <span class="user_logo">A</span>
+        </header>
 
         <!-- <form method="POST" class="form">
             <h5 class="form-title">REGISTER LOGIN</h5>
@@ -55,13 +60,16 @@
             <button class="task-btn-submit button" id="task-btn-submit">Submit</button>
         </form> -->
 
+<!-- <img src="./img/switch-on-1.png" id="img1" alt=""> -->
+<!-- <img src="./img/switch-off-1.png" id="img2" alt=""> -->
+<!-- 
         <div class="task-card">
             <div class="task-card-header">
                 <p class="task-name">Test task</p>
                 <p class="close-btn">x</p>
             </div>
-            <p class="task-description">Additional info</p>
-            <div class="task-timer">
+            <p class="task-info">Additional info</p>
+            <div class="timer-wrapper">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path class="svg-play"
                         d="M12 2C6.475 2 2 6.475 2 12C2 17.525 6.475 22 12 22C17.525 22 22 17.525 22 12C22 6.475 17.525 2 12 2ZM10 16.5V7.5L16 12L10 16.5Z"
@@ -73,22 +81,23 @@
                         d="M12 2C6.475 2 2 6.475 2 12 2 17.525 6.475 22 12 22 17.525 22 22 17.525 22 12 22 6.475 17.525 2 12 2ZM12 3C7.475 3 3 7.475 3 12 3 16.525 7.475 21 12 21 16.525 21 21 16.525 21 12 21 7.475 16.525 3 12 3ZM9 16 9 8C9 7 10 7 10 8L10 16C10 17 9 17 9 16ZM14 16 14 8C14 7 15 7 15 8L15 16C15 17 14 17 14 16Z"
                         fill="#e01b1b" fill-rule="evenodd" />
                 </svg>
+
                 <span class="hours">00</span>: 
                 timeTracked
                 <span class="min">00</span>:
                 <span class="sec">00</span>
             </div>
-            <div class="task-created-data"> createdAt
+            <div class="creation-data"> createdAt
                 21/02/2023 00-00-00
             </div>
             <button class="btn-done button">Mark as done</button>
-        </div>
+        </div> -->
 
     </div>
 
-    <!-- <script type="module" src="./components/Form.js"></script> -->
+    <!-- <script type="module" src="./components/Forms.js"></script> -->
     <script type="module" src="./components/Input.js"></script>
-    <script type="module" src="./components/Task.js"></script>
+    <!-- <script type="module" src="./components/Task.js"></script> -->
 </body>
 
 </html>

@@ -1,44 +1,57 @@
-const taskForm = document.createElement('form');
-const taskFormTitle = document.createElement('h5');
-taskFormTitle.innerText = 'ADD TASK';
+export class Input {
+    constructor(options) {
+        const {
+            name,
+            label,
+            placeholder,
+            type = 'text',
+            onInput,
+            onChange,
+        } = options;
 
-const taskInputContainer = document.createElement('div');
-const taskInputLabel = document.createElement('label');
-const taskInput = document.createElement('input');
-taskInputLabel.innerText = 'Name';
-taskInput.type = 'text';
-taskInput.placeholder = 'Enter the task';
-const taskInputErrMsg = document.createElement('span'); ////
-taskInputErrMsg.innerText = 'Add task!' ///////////////////////
+        this.input = document.createElement('input');
+        this.errorMsgText = document.createElement('span');
+        console.log(this);
 
-const descriptInputContainer = document.createElement('div');
-const descriptInputLabel = document.createElement('label');
-const descriptInput = document.createElement('input');
-descriptInputLabel.innerText = 'Description';
-descriptInput.type = 'text';
-descriptInput.placeholder = 'Add description (optionally)';
+        this.input.name = name;
+        this.label = label;
+        this.input.placeholder = placeholder;
+        this.value = this.input.value;
 
-const btnAdd = document.createElement('button');
-btnAdd.innerText = 'ADD';
+        this.control = this.createControl(onInput, onChange);
+    }
 
-document.body.append(taskForm);
-taskForm.append(taskFormTitle, taskInputContainer, descriptInputContainer, btnAdd);
+    createControl(onInput, onChange) {
+        const container = document.createElement('div');
+        const label = document.createElement('label');
 
-taskInputContainer.append(taskInputLabel, taskInput, taskInputErrMsg);
-descriptInputContainer.append(descriptInputLabel, descriptInput);
+        const inputId = `_${this.name}`;
 
-taskForm.classList.add('form');
-taskFormTitle.classList.add('form-title');
+        container.classList.add('input-container');
+        this.errorMsgText.classList.add('error-message');
+        this.input.classList.add('input');
 
-const inputContainers = [taskInputContainer, descriptInputContainer];
-inputContainers.map(cont => cont.classList.add('input-container'));
+        this.input.id = inputId;
+        label.setAttribute('for', inputId);
 
-const labels = [taskInputLabel, descriptInputLabel];
-labels.map(label => label.classList.add('input-label'));
+        label.innerText = this.label;
 
-const inputs = [taskInput, descriptInput];
-inputs.map(input => input.classList.add('field-input'));
+        container.append(label, this.input, this.errorMsgText);
 
-taskInputErrMsg.classList.add('error-message');
-
-btnAdd.classList.add('task-btn-submit', 'button');
+        if (onInput) {
+            this.input.addEventListener('input', (event) => {
+                this.value = this.target.value;
+                onInput(event);
+            });
+        }
+        if (onChange) {
+            this.input.addEventListener('change', (event) => {
+                onInput(event);
+            });
+        }
+        return container
+    }
+    render(container) {
+        container.append(this.control); 
+    };
+}
