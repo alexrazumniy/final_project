@@ -7,97 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
-    integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
-    
-    <div class="container" id="container">
+    <header class="header">
+        <h1 class="header-title">TASK SCHEDULER</h1>
+        <button id="btn-logout" class="btn-logout button"></button>
+        <span id="user_logo" class="user_logo"></span>
+    </header>
 
-        <header class="header">
-            <h1 class="header-title">TASK SCHEDULER</h1>
-            <img class="logout-icon" src="./img/outthedoor-icon.png" alt="">
-            <button class="btn-logout button">Logout</button>
-            <span class="user_logo">A</span>
-        </header>
-
-        <!-- <form method="POST" class="form">
-            <h5 class="form-title">REGISTER LOGIN</h5>
-            <h4 class="form-subtitle">REGISTER LOGIN</h4>
-            <div class="form-field" id="">
-                <label for="user-name" class="input-label">Name</label>
-                <input type="input-labeltext" class="field-input" placeholder="Your name" id="name">
-                <p id="error-name" class="error-message">sdfsf
-                </p>
-            </div>
-            <div class="form-field">
-                <label for="user-email" class="input-label">Email</label>
-                <input type="email" class="field-input" placeholder="Your email" id="email">
-                <p id="error-email" class="error-message">sdfsdf
-                </p>
-            </div>
-            <div class="form-field">
-                <label for="user-password" class="input-label">Password</label>
-                <input type="password" class="field-input" placeholder="Your password" id="password">
-                <p id="error-password" class="error-message">sdfsdfs
-                </p>
-            </div>
-            <button class="form-btn-submit button" id="form-btn-submit">Submit</button>
-        </form> -->
-
-        <!-- <form class="task-form">
-            <h5 class="task-input-title">ADD TASK</h5>
-            <div class="task-form-input">
-                <label for="task" class="field-name">Name</label>
-                <input type="text" class="task-input" id="task-name">
-            </div>
-            <div class="task-form-input">
-                <label for="description" class="field-name">Description</label>
-                <input type="text" class="task-input" id="task-description">
-            </div>
-            <button class="task-btn-submit button" id="task-btn-submit">Submit</button>
-        </form> -->
-
-<!-- <img src="./img/switch-on-1.png" id="img1" alt=""> -->
-<!-- <img src="./img/switch-off-1.png" id="img2" alt=""> -->
-<!-- 
-        <div class="task-card">
-            <div class="task-card-header">
-                <p class="task-name">Test task</p>
-                <p class="close-btn">x</p>
-            </div>
-            <p class="task-info">Additional info</p>
-            <div class="timer-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="svg-play"
-                        d="M12 2C6.475 2 2 6.475 2 12C2 17.525 6.475 22 12 22C17.525 22 22 17.525 22 12C22 6.475 17.525 2 12 2ZM10 16.5V7.5L16 12L10 16.5Z"
-                        fill="#0ca019" />
-                </svg>
-
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="svg-pause"
-                        d="M12 2C6.475 2 2 6.475 2 12 2 17.525 6.475 22 12 22 17.525 22 22 17.525 22 12 22 6.475 17.525 2 12 2ZM12 3C7.475 3 3 7.475 3 12 3 16.525 7.475 21 12 21 16.525 21 21 16.525 21 12 21 7.475 16.525 3 12 3ZM9 16 9 8C9 7 10 7 10 8L10 16C10 17 9 17 9 16ZM14 16 14 8C14 7 15 7 15 8L15 16C15 17 14 17 14 16Z"
-                        fill="#e01b1b" fill-rule="evenodd" />
-                </svg>
-
-                <span class="hours">00</span>: 
-                timeTracked
-                <span class="min">00</span>:
-                <span class="sec">00</span>
-            </div>
-            <div class="creation-data"> createdAt
-                21/02/2023 00-00-00
-            </div>
-            <button class="btn-done button">Mark as done</button>
-        </div> -->
+    <div class="app-container" id="app-container">
 
     </div>
+    <div class="task-board"></div>
 
-    <!-- <script type="module" src="./components/Forms.js"></script> -->
+    <!-- <script type="module" src="./components/index.js"></script>
+    <script type="module" src="./components/Form.js"></script>
     <script type="module" src="./components/Input.js"></script>
-    <!-- <script type="module" src="./components/Task.js"></script> -->
+    <script type="module" src="./components/API.js"></script>
+    <script type="module" src="./components/Task.js"></script> -->
 </body>
 
 </html>

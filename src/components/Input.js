@@ -2,8 +2,8 @@ export class Input {
     constructor(options) {
         const {
             name,
-            label,
             placeholder,
+            label,
             type = 'text',
             onInput,
             onChange,
@@ -11,9 +11,10 @@ export class Input {
 
         this.input = document.createElement('input');
         this.errorMsgText = document.createElement('span');
-        console.log(this);
 
+        this.name = name;
         this.input.name = name;
+        this.input.type = type;
         this.label = label;
         this.input.placeholder = placeholder;
         this.value = this.input.value;
@@ -28,30 +29,33 @@ export class Input {
         const inputId = `_${this.name}`;
 
         container.classList.add('input-container');
-        this.errorMsgText.classList.add('error-message');
         this.input.classList.add('input');
+        this.errorMsgText.classList.add('error-message');
 
         this.input.id = inputId;
         label.setAttribute('for', inputId);
 
         label.innerText = this.label;
+        label.classList.add('input-label');
 
         container.append(label, this.input, this.errorMsgText);
 
-        if (onInput) {
-            this.input.addEventListener('input', (event) => {
-                this.value = this.target.value;
+        this.input.addEventListener('input', (event) => {
+            this.value = event .target.value;
+            if (onInput) {
                 onInput(event);
-            });
-        }
+            }
+        });
+
         if (onChange) {
             this.input.addEventListener('change', (event) => {
-                onInput(event);
+                onChange(event);
             });
         }
         return container
     }
+
     render(container) {
-        container.append(this.control); 
+        container.append(this.control);
     };
 }

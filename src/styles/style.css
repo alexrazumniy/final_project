@@ -2,12 +2,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
+.header {
     max-width: 1440px;
     margin: 0 auto;
-}
-
-.header {
     position: relative;
     border-bottom: 3px solid rgb(62, 28, 184);
     margin-bottom: 20px;
@@ -21,17 +18,16 @@ body {
     margin: 8px auto;
 }
 
-.logout-icon {
-    position: absolute;
-    top: 15px;
-    right: 150px;
-}
-
 .btn-logout {
     position: absolute;
     top: 10px;
     right: 60px;
     background-color: rgb(238, 148, 144);
+}
+
+.btn-logout:hover {
+    text-decoration: underline;
+    cursor: pointer;    
 }
 
 .user_logo {
@@ -58,7 +54,14 @@ body {
     cursor: pointer;
 }
 
+.app-container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 .form {
+    display: flex;
+    flex-direction: column;
     max-width: 400px;
     margin: 0 auto;
     box-shadow: 2px 5px 5px #3e9acf;
@@ -66,16 +69,20 @@ body {
     padding: 25px;
 }
 
-.form-title {
+.btn-text {
     font-size: 20px;
-    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.form-subtitle {
+.btn-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.form-title {
     font-size: 32px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .input-container {
@@ -104,8 +111,13 @@ body {
     color: #f00;
 }
 
+.input-container:last-of-type {
+    margin-bottom: 45px;
+}
+
 .form-btn-submit {
-    margin-left: 310px;
+    padding: 6px 16px;    
+    align-self: flex-end;
     background-color: rgb(52, 182, 110);
     box-shadow: 2px 2px 2px;
 }
@@ -113,6 +125,12 @@ body {
 .form-btn-submit:hover {
     box-shadow: none;
     transform: translate(2px, 2px);
+}
+
+.task-board {
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr;
 }
 
 .task-form {

@@ -11,7 +11,7 @@ module.exports = {
         },
         compress: true,
         port: 9000,
-        watchFiles: ['./src/**/*']
+        watchFiles: ['./src/**/*'],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
