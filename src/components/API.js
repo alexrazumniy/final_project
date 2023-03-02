@@ -1,5 +1,13 @@
 export const TOKEN_KEY = 'token';
 
+class ApiError extends Error {
+    constructor({ message, data, status }) {
+        super(message);
+        this.status = status;
+        this.data = data;
+    }
+}
+
 class API {
     constructor() {
         this.baseUrl = 'https://byte-tasks.herokuapp.com/api';
@@ -9,9 +17,15 @@ class API {
         }
     }
 
-    handleErrors({ ok, url, status }) {
+    async handleErrors(response) {
+        const { ok, status, statusText } = response;
         if (!ok) {
-            throw new Error(`Response on ${url} failed with status ${status}`)
+            // throw new Error(`Response on ${url} failed with status ${status}`)
+            throw new ApiError({
+                message: 'Error! ',
+                data: await response.json(),
+                status: status,
+            });
         }
     }
 
@@ -22,21 +36,21 @@ class API {
             body: JSON.stringify(data),
         });
 
-        this.handleErrors(response);
+        await this.handleErrors(response);
 
         const registeredUser = await response.json();
 
-        return registeredUser
+        return registeredUser;
     }
 
     async login(data) {
         const response = await fetch(`${this.baseUrl}/auth/login`, {
             method: 'POST',
-            headers: this.headers,
             body: JSON.stringify(data),
+            headers: this.headers,
         });
 
-        this.handleErrors(response);
+        await this.handleErrors(response);
 
         const { token } = await response.json();
 
@@ -50,11 +64,11 @@ class API {
             headers: this.headers,
         });
 
-        this.handleErrors(response);
+        await this.handleErrors(response);
 
         const user = await response.json();
 
-        return user
+        return user;
     }
 
     isLoggedIn() {
@@ -65,7 +79,51 @@ class API {
         const localToken = localStorage.getItem(TOKEN_KEY);
         this.headers.Authorization = `Bearer ${localToken}`;
 
-        return this.getSelf()
+        return this.getSelf();
+    }
+
+    async createTask(data) {
+        const response = await fetch(`${this.baseUrl}/task`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: this.headers,
+        });
+
+        await this.handleErrors(response);
+
+        return response.json();
+    }
+
+    async getAllTasks() {
+        const response = await fetch(`${this.baseUrl}/task`, {
+            method: 'GET',
+            headers: this.headers,
+        });
+
+        await this.handleErrors(response);
+
+        return await response.json();
+    }
+
+    async editTask(id, data) {
+        const response = await fetch(`${this.baseUrl}/task/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: this.headers,
+        });
+
+        await this.handleErrors(response);
+
+        return response.json();
+    }
+
+    async deleteTask(id) {
+        const response = await fetch(`${this.baseUrl}/task/${id}`, {
+            method: 'DELETE',
+            headers: this.headers,
+        });
+
+        await this.handleErrors(response);
     }
 
     logout() {

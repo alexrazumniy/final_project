@@ -30,7 +30,7 @@ export class Input {
 
         container.classList.add('input-container');
         this.input.classList.add('input');
-        this.errorMsgText.classList.add('error-message');
+        this.errorMsgText.classList.add('input-error');
 
         this.input.id = inputId;
         label.setAttribute('for', inputId);
@@ -42,7 +42,8 @@ export class Input {
 
         this.input.addEventListener('input', (event) => {
             this.value = event .target.value;
-            if (onInput) {
+            this.updateErrorMessage('');
+            if (onInput) {                
                 onInput(event);
             }
         });
@@ -52,7 +53,11 @@ export class Input {
                 onChange(event);
             });
         }
-        return container
+        return container;
+    }
+
+    updateErrorMessage(message) {
+        this.errorMsgText.innerText = message;
     }
 
     render(container) {

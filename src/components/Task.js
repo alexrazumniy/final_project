@@ -1,89 +1,168 @@
-// Форма для ввода таска
+import { api } from "./API";
 
-const taskForm = document.createElement('form');
-const taskFormTitle = document.createElement('h5');
-taskFormTitle.innerText = 'ADD TASK';
+export class Task {
+    constructor({
+        name,
+        description,
+        timeTracked,
+        isActive,
+        isFinished,
+        _id,
+        createdAt,
+    }) {
+        this.name = name;
+        this.description = description;
+        this.timeTracked = timeTracked;
+        this.isActive = isActive;
+        this.isFinished = isFinished;
+        this.createdAt = new Date(createdAt);
 
-const taskInputContainer = document.createElement('div');
-const taskInputLabel = document.createElement('label');
-const taskInput = document.createElement('input');
-taskInputLabel.innerText = 'Name';
-taskInput.type = 'text';
-taskInput.placeholder = 'Enter the task';
-const taskInputErrMsg = document.createElement('span'); ////
-taskInputErrMsg.innerText = 'Add task!' ///////////////////////
+        this.id = _id;
 
-const descriptInputContainer = document.createElement('div');
-const descriptInputLabel = document.createElement('label');
-const descriptInput = document.createElement('input');
-descriptInputLabel.innerText = 'Description';
-descriptInput.type = 'text';
-descriptInput.placeholder = 'Add description (optionally)';
+        this.taskCard = document.createElement('div');
+        this.deleteBtn = document.createElement('button');
+        this.timerBtn = document.createElement('button');
+        this.timeTrackedElement = document.createElement('span');
+        this.markAsDoneBtn = document.createElement('button');
+        this.timeTrackedIntervalId = null;
+    }
 
-const btnAdd = document.createElement('button');
-btnAdd.innerText = 'ADD';
+    renderCard(container) {
+        const titleElem = document.createElement('h3');
+        const descriptionElem = document.createElement('p');
+        const timeTracker = document.createElement('div');
+        const dateElem = document.createElement('p');
 
-document.body.append(taskForm);
-taskForm.append(taskFormTitle, taskInputContainer, descriptInputContainer, btnAdd);
+        titleElem.classList.add('task-title');
+        descriptionElem.classList.add('task-description')
+        timeTracker.classList.add('time-tracker');
+        dateElem.classList.add('task-date');
 
-taskInputContainer.append(taskInputLabel, taskInput, taskInputErrMsg);
-descriptInputContainer.append(descriptInputLabel, descriptInput);
+        this.taskCard.classList.add('task-card');
+        this.deleteBtn.classList.add('task-delete-btn');
+        this.timerBtn.classList.add('timer-play-btn');
+        this.markAsDoneBtn.classList.add('mark-as-done-btn', 'button');
+        // this.timeTrackedElement = document.createElement('span');
 
-taskForm.classList.add('form');
-taskFormTitle.classList.add('form-title');
+        if (this.isFinished) {
+            this.timerBtn.setAttribute('disabled', '');
+            this.taskCard.classList.add('task-finished');
+            this.markAsDoneBtn.innerText = 'Restart';
+        } else {
+            this.timerBtn.classList.add(
+                this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
+            );
+            this.markAsDoneBtn.innerText = 'Mark as done';
+        }
 
-const inputContainers = [taskInputContainer, descriptInputContainer];
-inputContainers.map(cont => cont.classList.add('input-container'));
+        titleElem.innerText = this.name;
+        descriptionElem.innerText = this.description;
 
-const labels = [taskInputLabel, descriptInputLabel];
-labels.map(label => label.classList.add('input-label'));
+        dateElem.innerText = Task.getFormattedDate(this.createdAt);
+        this.timeTrackedElement.innerText = Task.getFormattedTimeTracked(this.timeTracked);
 
-const inputs = [taskInput, descriptInput];
-inputs.map(input => input.classList.add('field-input'));
+        this.deleteBtn.innerHTML = `<i class="fas fa-times"></i>`;
 
-taskInputErrMsg.classList.add('error-message');
+        if (this.isActive) {
+            this.startTracker();
+            this.timerBtn.innerHTML = `<i class="fas fa-pause"></i>`;
+        } else {
+            this.timerBtn.innerHTML = `<i class="fas fa-play"></i>`;
+        }
 
-btnAdd.classList.add('task-btn-submit', 'button');
+        timeTracker.append(this.timerBtn, this.timeTrackedElement);
+
+        this.taskCard.append(
+            titleElem,
+            descriptionElem,
+            timeTracker,
+            dateElem,
+            this.markAsDoneBtn,
+            this.deleteBtn
+        );
+
+        container.append(this.taskCard);
+
+        this.timerBtn.addEventListener('click', this.toggleTimeTracker);
+        this.deleteBtn.addEventListener('click', this.removeTaskCard);
+        this.markAsDoneBtn.addEventListener('click', this.toggleTaskFinished);
+    };
+
+    removeTaskCard = async () => {
+        await api.deleteTask(this.id);
+        this.taskCard.remove();
+    };
+    
+    toggleTaskFinished = async () => {
+        this.isFinished = !this.isFinished;
+
+        await api.editTask(this.id, { isFinished: this.isFinished });
+
+        this.taskCard.classList.toggle('task-finished');
+
+        if (this.isFinished) {
+            this.timerBtn.setAttribute('disabled', '');
+            this.markAsDoneBtn.innerText = 'Restart';
+            this.stopTracker();
+        } else {
+            this.timerBtn.removeAttribute('disabled');
+            this.markAsDoneBtn.innerText = 'Mark as done';
+        }
+    };
+    
+    toggleTimeTracker = async () => {
+        this.isActive = !this.isActive;
+
+        await api.editTask(this.id, { isActive: this.isActive });
+
+        if (this.isActive) {
+            this.startTracker()
+        } else {
+            this.stopTracker()
+        }
+    };
+
+    startTracker() {
+        this.timerBtn.classList.remove('timer-play-btn');
+        this.timerBtn.classList.add('timer-stop-btn');
+        this.timerBtn.innerHTML = `<i class="fas fa-pause"></i>`;
+
+        this.timeTrackedIntervalId = setInterval(() => {
+            this.timeTracked += 1000;
+            this.updateTimeTracker()
+        }, 1000)
+    };
+
+    stopTracker() {
+        this.timerBtn.classList.add('timer-play-btn');
+        this.timerBtn.classList.remove('timer-stop-btn');
+        this.timerBtn.innerHTML = `<i class="fas fa-play"></i>`;
+        clearInterval(this.timeTrackedIntervalId);
+    };
+
+    updateTimeTracker() {
+        const formatted = Task.getFormattedTimeTracked(this.timeTracked);
+        this.timeTrackedElement.innerText = formatted;
+    };
 
 
+    static getFormattedDate(createdAt) {  // (date)
+        const date = createdAt.toLocaleDateString();
+        const time = createdAt.toLocaleTimeString();
 
+        return `${date} ${time}`
+    }
 
-// Форма карточки таска
+    static addOptionalZero(value) {
+        return value > 9 ? value : `0${value}`;
+    }
 
-const taskCard = document.createElement('div');
-const cardHeader = document.createElement('div');
-const taskName = document.createElement('p');
-taskName.innerText = 'Test task';
-const closeBtn = document.createElement('p');
-closeBtn.innerText = 'x';
+    static getFormattedTimeTracked(timeTracked) {
+        const timeTrackedSeconds = Math.floor(timeTracked / 1000);
+        const hours = Math.floor(timeTrackedSeconds / 3600);
+        const minutes = Math.floor((timeTrackedSeconds - hours * 3600) / 60);
+        const seconds = timeTrackedSeconds - hours * 3600 - minutes * 60;
 
-const taskInfo = document.createElement('p');
-taskInfo.innerText = 'Additional info';
-
-const timerWrapper = document.createElement('div');
-const startBtn = document.createElement('div');
-const timeTracker = document.createElement('span');
-timeTracker.innerText = 'timeTracked';
-
-const creationData = document.createElement('p');
-creationData.innerText = 'createdAt';
-
-const btnDone = document.createElement('button');
-btnDone.innerText = 'Mark as done';
-
-document.body.append(taskCard);
-cardHeader.append(taskName, closeBtn);
-timerWrapper.append(startBtn, timeTracker);
-taskCard.append(cardHeader, taskInfo, timerWrapper, creationData, btnDone)
-
-taskCard.classList.add('task-card');
-cardHeader.classList.add('task-card-header');
-taskName.classList.add('task-name');
-closeBtn.classList.add('close-btn');
-taskInfo.classList.add('task-info');
-timerWrapper.classList.add('timer-wrapper');
-// startBtn.classList.add('play-btn');
-startBtn.classList.add('pause-btn');
-creationData.classList.add('creation-data');
-btnDone.classList.add('btn-done', 'button');
-
+        return `${this.addOptionalZero(hours)}:${this.addOptionalZero(minutes)}:${this.addOptionalZero(seconds)}`;
+    }
+}

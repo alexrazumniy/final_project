@@ -6,8 +6,7 @@ export class Form {
         this.inputs = inputs;
         this.form = document.createElement('form');
         this.createForm(options);
-
-        // this.form.classList.add('form'); // Needs correction!
+        this.form.classList.add('form');
     }
 
     static getFormValues(inputs) {
@@ -16,7 +15,6 @@ export class Form {
             return values
         }, {})
     }
-
 
     createForm({ onSubmit, submitBtnText, title: titleText }) {
         const title = document.createElement('h4');
@@ -38,7 +36,15 @@ export class Form {
             try {
                 await onSubmit(this.formValues, event);
             } catch (err) {
-                console.log(`err`, err);
+                console.log(`err`, err.data);
+                err.data.details.forEach(({ path, message }) => {
+                    // найти инпут
+                    const erroredInput = this.inputs.find((input) => {
+                        return input.name === path[0];
+                    });
+                    // вывести сообщение в инпуте
+                    erroredInput.updateErrorMessage(message);
+                });
             }
             this.submitBtn.removeAttribute('disabled');
         })

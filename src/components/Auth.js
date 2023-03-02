@@ -2,6 +2,7 @@ import { api } from './API';
 import { Input } from './Input';
 import { Form } from './Form';
 import { loginConfig, registerConfig } from './formConfigs';
+import { taskBoard } from '../index';
 
 const getLoginForm = (onSuccess) => {
     return new Form({
@@ -34,7 +35,7 @@ export class Auth {
         this.logoutBtn = document.getElementById('btn-logout');
         this.userLogo = document.getElementById('user_logo');
         this.formContainer = document.createElement('div');
-        this.switchBtn = document.createElement('h3');
+        this.switchBtn = document.createElement('button');
 
         this.form = null;
         this.user = null;
@@ -48,8 +49,8 @@ export class Auth {
     }
 
     createFormContainer() {
-        this.formContainer.classList.add('form');
-        this.switchBtn.classList.add('btn-text');
+        this.formContainer.classList.add('form-container');
+        this.switchBtn.classList.add('form-switch-btn');
         this.switchBtn.innerText = 'REGISTER';
         this.formContainer.prepend(this.switchBtn);
 
@@ -64,16 +65,13 @@ export class Auth {
         this.logoutBtn.addEventListener('click', () => {
             this.logout();
             api.logout();
+            taskBoard.logout();
         })
     }
 
     renderHeaderControls() {
         this.userLogo.innerText = this.user.name[0];
     }
-
-    // renderLoginForm() { }
-
-    // renderRegisterForm() { }
 
     renderAuthForm() {
         if (this.form) {
@@ -90,7 +88,6 @@ export class Auth {
     }
 
     switchForms() {
-        console.log(this);
         this.isLogin = !this.isLogin;
 
         if (this.isLogin) {
