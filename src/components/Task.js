@@ -40,9 +40,8 @@ export class Task {
 
         this.taskCard.classList.add('task-card');
         this.deleteBtn.classList.add('task-delete-btn');
-        this.timerBtn.classList.add('timer-play-btn');
+        this.timerBtn.classList.add('timer-btn');
         this.markAsDoneBtn.classList.add('mark-as-done-btn', 'button');
-        // this.timeTrackedElement = document.createElement('span');
 
         if (this.isFinished) {
             this.timerBtn.setAttribute('disabled', '');
@@ -129,7 +128,7 @@ export class Task {
 
         this.timeTrackedIntervalId = setInterval(() => {
             this.timeTracked += 1000;
-            this.updateTimeTracker()
+            this.updateTimeTracker();
         }, 1000)
     };
 
@@ -145,8 +144,7 @@ export class Task {
         this.timeTrackedElement.innerText = formatted;
     };
 
-
-    static getFormattedDate(createdAt) {  // (date)
+    static getFormattedDate(createdAt) {
         const date = createdAt.toLocaleDateString();
         const time = createdAt.toLocaleTimeString();
 

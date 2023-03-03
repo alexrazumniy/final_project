@@ -26,7 +26,7 @@ export class TaskBoard {
         const formContainer = document.createElement('div');
 
         board.classList.add('board');
-        formContainer.classList.add('task-form');
+        formContainer.classList.add('form', 'task-form');
         this.taskContainer.classList.add('task-cards');
 
         board.append(formContainer, this.taskContainer);
