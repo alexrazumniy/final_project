@@ -48,9 +48,8 @@ export class Task {
             this.taskCard.classList.add('task-finished');
             this.markAsDoneBtn.innerText = 'Restart';
         } else {
-            this.timerBtn.classList.add(
-                this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
-            );
+            this.timerBtn.classList.add('timer-play-btn');
+                // this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
             this.markAsDoneBtn.innerText = 'Mark as done';
         }
 

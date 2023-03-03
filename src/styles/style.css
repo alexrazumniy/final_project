@@ -179,7 +179,6 @@ body {
 
 .task-card:hover {
     box-shadow: inset 2px 2px 4px #0f8a80;
-    transform: translate(2px, 2px);
 }
 
 .task-title {
