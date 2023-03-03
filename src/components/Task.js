@@ -50,6 +50,9 @@ export class Task {
         } else {
             this.timerBtn.classList.add('timer-play-btn');
                 // this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
+                // this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
+            // );
+
             this.markAsDoneBtn.innerText = 'Mark as done';
         }
 
@@ -76,7 +79,7 @@ export class Task {
             timeTracker,
             dateElem,
             this.markAsDoneBtn,
-            this.deleteBtn
+            this.deleteBtn,
         );
 
         container.append(this.taskCard);
@@ -114,9 +117,9 @@ export class Task {
         await api.editTask(this.id, { isActive: this.isActive });
 
         if (this.isActive) {
-            this.startTracker()
+            this.startTracker();
         } else {
-            this.stopTracker()
+            this.stopTracker();
         }
     };
 
