@@ -49,10 +49,6 @@ export class Task {
             this.markAsDoneBtn.innerText = 'Restart';
         } else {
             this.timerBtn.classList.add('timer-play-btn');
-                // this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
-                // this.isActive ? 'timer-play-btn' : 'timer-stop-btn'
-            // );
-
             this.markAsDoneBtn.innerText = 'Mark as done';
         }
 
@@ -93,7 +89,7 @@ export class Task {
         await api.deleteTask(this.id);
         this.taskCard.remove();
     };
-    
+
     toggleTaskFinished = async () => {
         this.isFinished = !this.isFinished;
 
@@ -105,12 +101,14 @@ export class Task {
             this.timerBtn.setAttribute('disabled', '');
             this.markAsDoneBtn.innerText = 'Restart';
             this.stopTracker();
+            this.markAsDoneBtn.addEventListener('click', this.restartTracker); // Меняем назначение кнопки на Рестарт
         } else {
             this.timerBtn.removeAttribute('disabled');
-            this.markAsDoneBtn.innerText = 'Mark as done';
+            this.timerBtn.classList.add('timer-play-btn');
+            this.markAsDoneBtn.innerText = 'Mark as done';            
         }
     };
-    
+
     toggleTimeTracker = async () => {
         this.isActive = !this.isActive;
 
@@ -122,6 +120,18 @@ export class Task {
             this.stopTracker();
         }
     };
+
+    restartTracker = async () => {
+        this.timeTracked = 0;
+        this.updateTimeTracker();
+        this.isActive = false;
+        this.isFinished = false;
+        clearInterval(this.timeTrackedIntervalId);
+
+        await api.editTask(this.id, { isActive: this.isActive });
+        await api.editTask(this.id, { isFinished: this.isFinished });
+        await api.editTask(this.id, { timeTracked: this.timeTracked });
+    }
 
     startTracker() {
         this.timerBtn.classList.remove('timer-play-btn');
