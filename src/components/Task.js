@@ -105,7 +105,7 @@ export class Task {
         } else {
             this.timerBtn.removeAttribute('disabled');
             this.timerBtn.classList.add('timer-play-btn');
-            this.markAsDoneBtn.innerText = 'Mark as done';            
+            this.markAsDoneBtn.innerText = 'Mark as done';
         }
     };
 

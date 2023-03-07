@@ -31,7 +31,7 @@ const renderAppLayout = async (user) => {
 
     const taskList = await api.getAllTasks();
 
-    taskList.forEach((task) => taskBoard.addTask(task));
+    taskList.forEach((task) => taskBoard.addTask(task));    
 };
 
 const init = async () => {
@@ -45,4 +45,3 @@ const init = async () => {
 };
 
 init();
-
